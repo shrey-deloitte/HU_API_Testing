@@ -7,9 +7,76 @@
 	"item": [
 		{
 			"name": "GETRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"Verify content type\", function(){\r",
+							"\r",
+							"\r",
+							"\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"});\r",
+							"\r",
+							"let a = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verify User with 'id' 40 has 'userId'=4 \", function(){\r",
+							"    let userId = a[39].userId;\r",
+							"\r",
+							"   pm.expect(userId).to.eql(4);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify Every user contains 'title' and its type is String\",function(){\r",
+							"\r",
+							"    let f = true;\r",
+							"\r",
+							"    for(let i=0;i<a.length;i++){\r",
+							"\r",
+							"        if(typeof(a[i].title) != \"string\" ){\r",
+							"            f=false\r",
+							"            break;\r",
+							"\r",
+							"        }\r",
+							"    }\r",
+							"   pm.expect(f).to.eql(true);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{jspDomain}}/posts",
+					"host": [
+						"{{jspDomain}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
 			},
 			"response": []
 		},
@@ -31,6 +98,13 @@
 							"\r",
 							"});\r",
 							"\r",
+							"pm.test(\"Verify content type\", function(){\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -49,7 +123,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    ”name”: ”Amit”,\r\n    ”job”: ”Manager”\r\n}\r\n\r\n{\r\n    \"id\": \"744\",\r\n    \"createdAt\": \"2021-06-10T15:09:17.919Z\"\r\n}\r\n\r\n\r\n",
+					"raw": "{\r\n    ”name”: ”Amit”,\r\n    ”job”: ”Manager”\r\n}\r\n\r\n\r\n\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -57,11 +131,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{reqs}}/api/users",
 					"host": [
-						"reqres",
-						"in"
+						"{{reqs}}"
 					],
 					"path": [
 						"api",
@@ -73,15 +145,47 @@
 		},
 		{
 			"name": "PUTRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"Verify content type\", function(){\r",
+							"\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\r\n\"name\": \"Arun\",\r\n   \"job\": \"Manager\",\r\n   \"updatedAt\": \"2021-06-11T07:07:25.866Z\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{reqsDomain}}/api/users",
 					"host": [
-						"reqres",
-						"in"
+						"{{reqsDomain}}"
 					],
 					"path": [
 						"api",
@@ -93,19 +197,78 @@
 		},
 		{
 			"name": "DELETERequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"\r",
+							"\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify content type\", function(){\r",
+							"\r",
+							"\r",
+							"\r",
+							"    pm.response.to.be.header(\"Content-Type\",\"application/json; charset=utf-8\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the content is deleted successfully\", function(){\r",
+							"\r",
+							"\r",
+							"\r",
+							"    pm.expect(responseData.length == 0);\r",
+							"\r",
+							"\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{JSPDomain}}/posts/1",
 					"host": [
-						"reqres",
-						"in"
+						"{{JSPDomain}}"
 					],
 					"path": [
-						"api",
-						"users"
+						"posts",
+						"1"
 					]
 				}
 			},
